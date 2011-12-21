@@ -51,7 +51,7 @@
       }
 
       previous = $ul.find('.active a').last()[0]
-      $href = $(href)
+      $href = $ul.parent().parent().find('.' + href.substring(1, href.length))
 
       activate($this.parent('li'), $ul)
       activate($href, $href.parent())
