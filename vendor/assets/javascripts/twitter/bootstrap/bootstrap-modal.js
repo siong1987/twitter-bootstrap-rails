@@ -40,11 +40,11 @@
     if ( $.support.transition ) {
       transitionEnd = "TransitionEnd"
       if ( $.browser.webkit ) {
-      	transitionEnd = "webkitTransitionEnd"
+        transitionEnd = "webkitTransitionEnd"
       } else if ( $.browser.mozilla ) {
-      	transitionEnd = "transitionend"
+        transitionEnd = "transitionend"
       } else if ( $.browser.opera ) {
-      	transitionEnd = "oTransitionEnd"
+        transitionEnd = "oTransitionEnd"
       }
     }
 
@@ -79,21 +79,13 @@
 
         escape.call(this)
         backdrop.call(this, function () {
-          var transition = $.support.transition && that.$element.hasClass('fade')
-
           that.$element
             .appendTo(document.body)
             .show()
 
-          if (transition) {
-            that.$element[0].offsetWidth // force reflow
-          }
-
           that.$element.addClass('in')
 
-          transition ?
-            that.$element.one(transitionEnd, function () { that.$element.trigger('shown') }) :
-            that.$element.trigger('shown')
+          that.$element.trigger('shown')
 
         })
 
@@ -116,9 +108,7 @@
           .trigger('hide')
           .removeClass('in')
 
-        $.support.transition && this.$element.hasClass('fade') ?
-          hideWithTransition.call(this) :
-          hideModal.call(this)
+        hideModal.call(this)
 
         return this
       }
@@ -155,8 +145,6 @@
     var that = this
       , animate = this.$element.hasClass('fade') ? 'fade' : ''
     if ( this.isShown && this.settings.backdrop ) {
-      var doAnimate = $.support.transition && animate
-
       this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
         .appendTo(document.body)
 
@@ -164,22 +152,14 @@
         this.$backdrop.click($.proxy(this.hide, this))
       }
 
-      if ( doAnimate ) {
-        this.$backdrop[0].offsetWidth // force reflow
-      }
-
       this.$backdrop.addClass('in')
 
-      doAnimate ?
-        this.$backdrop.one(transitionEnd, callback) :
-        callback()
+      callback()
 
     } else if ( !this.isShown && this.$backdrop ) {
       this.$backdrop.removeClass('in')
 
-      $.support.transition && this.$element.hasClass('fade')?
-        this.$backdrop.one(transitionEnd, $.proxy(removeBackdrop, this)) :
-        removeBackdrop.call(this)
+      removeBackdrop.call(this)
 
     } else if ( callback ) {
        callback()
@@ -258,3 +238,4 @@
   })
 
 }( window.jQuery || window.ender );
+
