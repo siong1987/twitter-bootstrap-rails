@@ -281,7 +281,7 @@
       binder   = options.live ? 'live' : 'bind'
       eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus'
       eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur'
-      this[binder](eventIn, enter)[binder](eventOut, leave)
+      this[binder](eventIn, enter)[binder](eventOut, leave)[binder]('click', leave)
     }
 
     return this
